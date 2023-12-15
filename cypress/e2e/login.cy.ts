@@ -1,5 +1,5 @@
 describe('template spec', () => {
-  it('passes', () => {
+  it('login into Umami', () => {
     cy.visit('/login');
   });
 });
