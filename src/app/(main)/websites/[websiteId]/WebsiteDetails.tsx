@@ -12,10 +12,10 @@ import WebsiteTableView from './WebsiteTableView';
 
 export default function WebsiteDetails({
   websiteId,
-  customDataFields,
+  customDataFields = [],
 }: {
   websiteId: string;
-  customDataFields: string[];
+  customDataFields?: string[];
 }) {
   const { data: website, isLoading, error } = useWebsite(websiteId);
   const pathname = usePathname();

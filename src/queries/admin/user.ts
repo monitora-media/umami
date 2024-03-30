@@ -79,6 +79,8 @@ export async function createUser(data: {
   username: string;
   password: string;
   role: Role;
+  logoUrl?: string;
+  displayName?: string;
 }): Promise<{
   id: string;
   username: string;

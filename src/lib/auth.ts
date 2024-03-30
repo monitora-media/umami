@@ -272,6 +272,22 @@ export async function canDeleteUser({ user }: Auth) {
   return user.isAdmin;
 }
 
+export async function canCreateAuthProvider({ user }: Auth) {
+  return user.isAdmin;
+}
+
+export async function canUpdateAuthProvider({ user }: Auth) {
+  return user.isAdmin;
+}
+
+export async function canDeleteAuthProvider({ user }: Auth) {
+  return user.isAdmin;
+}
+
+export async function canListAuthProviders({ user }: Auth) {
+  return user.isAdmin;
+}
+
 export async function hasPermission(role: string, permission: string | string[]) {
   return ensureArray(permission).some(e => ROLE_PERMISSIONS[role]?.includes(e));
 }

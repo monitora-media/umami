@@ -9,6 +9,13 @@ export async function findTeam(criteria: Prisma.TeamFindUniqueArgs): Promise<Tea
   return prisma.client.team.findUnique(criteria);
 }
 
+export async function findTeamByName(name: string, options: { includeMembers?: boolean }) {
+  return prisma.client.team.findFirst({
+    where: { name },
+    ...(options.includeMembers && { include: { teamUser: true } }),
+  });
+}
+
 export async function getTeam(teamId: string, options: { includeMembers?: boolean } = {}) {
   const { includeMembers } = options;
 

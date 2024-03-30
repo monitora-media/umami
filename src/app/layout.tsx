@@ -23,6 +23,7 @@ export default function ({ children }) {
         <meta name="theme-color" content="#2f2f2f" media="(prefers-color-scheme: dark)" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="noindex,nofollow" />
+        <script defer src="http://localhost:3000/script.js" data-testfield="yes" data-website-id="9831d527-ef36-40e6-bdb2-9ed851db3bb3"></script>
       </head>
       <body>
         <Providers>{children}</Providers>

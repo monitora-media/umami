@@ -10,7 +10,10 @@ export function useApi() {
   const shareToken = useStore(selector);
 
   const { get, post, put, del } = nextUseApi(
-    { authorization: `Bearer ${getClientAuthToken()}`, [SHARE_TOKEN_HEADER]: shareToken?.token },
+    {
+      authorization: `Bearer ${getClientAuthToken()}`,
+      [SHARE_TOKEN_HEADER]: shareToken?.token,
+    },
     process.env.basePath,
   );
 

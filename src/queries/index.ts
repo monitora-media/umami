@@ -3,6 +3,7 @@ export * from './admin/team';
 export * from './admin/teamUser';
 export * from './admin/user';
 export * from './admin/website';
+export * from './admin/authProvider';
 export * from './analytics/events/getEventMetrics';
 export * from './analytics/events/getEventUsage';
 export * from './analytics/events/getEvents';

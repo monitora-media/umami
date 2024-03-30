@@ -19,12 +19,33 @@ model User {
   updatedAt   DateTime? @updatedAt @map("updated_at") @db.Timestamptz(6)
   deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
 
-  websiteUser       Website[] @relation("user")
-  websiteCreateUser Website[] @relation("createUser")
+  websiteUser       Website[]  @relation("user")
+  websiteCreateUser Website[]  @relation("createUser")
   teamUser          TeamUser[]
   report            Report[]
 
   @@map("user")
+}
+
+model OAuthProvider {
+  id                             String    @id @unique @map("oauth_provider_id") @db.Uuid
+  name                           String    @unique @db.VarChar(50)
+  clientId                       String    @map("client_id") @db.VarChar(255)
+  clientSecret                   String    @map("client_secret") @db.VarChar(255)
+  authorizationEndpoint          String    @map("authorization_endpoint") @db.VarChar(255)
+  tokenEndpoint                  String    @map("token_endpoint") @db.VarChar(255)
+  userinfoEndpoint               String    @map("userinfo_endpoint") @db.VarChar(255)
+  usernameClaim                  String    @map("username_claim") @db.VarChar(50)
+  displayNameClaim               String    @map("display_name_claim") @db.VarChar(50)
+  logoUrlClaim                   String    @map("logo_url_claim") @db.VarChar(50)
+  teamNamesClaim                 String    @map("team_names_claim") @db.VarChar(50)
+  scope                          String    @map("scope") @db.VarChar(255)
+  enableCsrfProtection           Boolean   @default(true) @map("enable_csrf_protection")
+  passAccessTokenViaGetParameter Boolean   @default(false) @map("pass_access_token_via_get_parameter")
+  createdAt                      DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                      DateTime? @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("oauth_provider")
 }
 
 model Session {
