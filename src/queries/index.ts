@@ -15,6 +15,7 @@ export * from './analytics/events/saveEvent';
 export * from './analytics/reports/getFunnel';
 export * from './analytics/reports/getRetention';
 export * from './analytics/reports/getInsights';
+export * from './analytics/reports/getUTM';
 export * from './analytics/pageviews/getPageviewMetrics';
 export * from './analytics/pageviews/getPageviewStats';
 export * from './analytics/sessions/createSession';
