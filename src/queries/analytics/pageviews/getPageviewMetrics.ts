@@ -47,7 +47,7 @@ async function relationalQuery(
       'and (website_event.referrer_domain != {{websiteDomain}} or website_event.referrer_domain is null)';
   } else if (column === 'custom') {
     joinEventData = 'join event_data on event_data.website_event_id = website_event.event_id';
-    filterEventDataOnFieldName = 'and event_data.event_key = {{fieldName}}';
+    filterEventDataOnFieldName = 'and event_data.data_key = {{fieldName}}';
   }
 
   return rawQuery(
@@ -77,8 +77,7 @@ async function clickhouseQuery(
   filters: QueryFilters,
   limit: number = 500,
   offset: number = 0,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  fieldName?: string,
+  fieldName?: string, // eslint-disable-line
 ): Promise<{ x: string; y: number }[]> {
   const column = FILTER_COLUMNS[type] || type;
   const { rawQuery, parseFilters } = clickhouse;
