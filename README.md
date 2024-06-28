@@ -22,7 +22,7 @@ npm install -g yarn
 ### Get the source code and install packages
 
 ```
-git clone https://github.com/umami-software/umami.git
+git clone https://github.com/monitora-media/umami.git
 cd umami
 yarn install
 ```
