@@ -1,11 +1,11 @@
 import prisma from 'lib/prisma';
 import { PRISMA, runQuery } from 'lib/db';
-import { MonitoraEventData } from 'lib/types';
+import { MediaboardEventData } from 'lib/types';
 
-export async function getEventsForMonitora(
+export async function getEventsForMediaboard(
   startDate: Date,
   endDate: Date,
-): Promise<MonitoraEventData[]> {
+): Promise<MediaboardEventData[]> {
   return runQuery({
     [PRISMA]: () => relationalQuery(startDate.toISOString(), endDate.toISOString()),
     // [CLICKHOUSE]: () => clickhouseQuery(...args),

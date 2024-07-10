@@ -155,7 +155,7 @@ export interface WebsiteEventData {
   total: number;
 }
 
-export interface MonitoraEventData {
+export interface MediaboardEventData {
   createdAt: Date;
   websiteId: string;
   sessionId: string;

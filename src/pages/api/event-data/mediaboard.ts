@@ -2,10 +2,10 @@ import { useAuth, useCors, useValidate } from 'lib/middleware';
 import { NextApiRequestQueryBody } from 'lib/types';
 import { NextApiResponse } from 'next';
 import { methodNotAllowed, ok } from 'next-basics';
-import { getEventsForMonitora } from 'queries';
+import { getEventsForMediaboard } from 'queries';
 import * as yup from 'yup';
 
-export interface EventsForMonitoraRequestQuery {
+export interface EventsForMediaboardRequestQuery {
   startAt: string;
   endAt: string;
 }
@@ -18,7 +18,7 @@ const schema = {
 };
 
 export default async (
-  req: NextApiRequestQueryBody<EventsForMonitoraRequestQuery, any>,
+  req: NextApiRequestQueryBody<EventsForMediaboardRequestQuery, any>,
   res: NextApiResponse<any>,
 ) => {
   await useCors(req, res);
@@ -31,7 +31,7 @@ export default async (
     const startDate = new Date(+startAt);
     const endDate = new Date(+endAt);
 
-    const data = await getEventsForMonitora(startDate, endDate);
+    const data = await getEventsForMediaboard(startDate, endDate);
 
     return ok(res, data);
   }
