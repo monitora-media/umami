@@ -10,6 +10,7 @@ export * from './analytics/eventData/getEventDataEvents';
 export * from './analytics/eventData/getEventDataFields';
 export * from './analytics/eventData/getEventDataStats';
 export * from './analytics/eventData/getEventDataUsage';
+export * from './analytics/eventData/getEventsForMonitora';
 export * from './analytics/events/saveEvent';
 export * from './analytics/reports/getFunnel';
 export * from './analytics/reports/getRetention';

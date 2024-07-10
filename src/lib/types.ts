@@ -155,6 +155,18 @@ export interface WebsiteEventData {
   total: number;
 }
 
+export interface MonitoraEventData {
+  createdAt: Date;
+  websiteId: string;
+  sessionId: string;
+  websiteEventId: string;
+  urlPath?: string;
+  eventType: number;
+  eventName?: string;
+  trid?: string;
+  target?: string;
+}
+
 export interface WebsitePageviews {
   pageviews: {
     t: string;
