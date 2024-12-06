@@ -32,7 +32,8 @@ async function relationalQuery(startDate: string, endDate: string) {
             we.website_id = ed.website_id
             AND we.event_id = ed.website_event_id
         WHERE
-            we.created_at BETWEEN '${startDate}' AND '${endDate}'
+            we.created_at > '${startDate}' 
+            AND we.created_at <= '${endDate}'
         GROUP BY
             we.created_at,
             we.website_id,
