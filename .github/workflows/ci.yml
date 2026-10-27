@@ -33,5 +33,6 @@ jobs:
           node-version: '18.17'
           cache: yarn
       - run: yarn install --frozen-lockfile
+      - run: yarn build-db # prisma generate - the test suite imports modules that use the client
       - run: yarn test
       - run: yarn build
