@@ -4,4 +4,11 @@ export default {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
+  // Resolve the tsconfig path aliases (baseUrl ./src) so modules importing via
+  // `lib/...`, `components/...` or `queries/...` can be unit-tested.
+  moduleNameMapper: {
+    '^lib/(.*)$': '<rootDir>/src/lib/$1',
+    '^components/(.*)$': '<rootDir>/src/components/$1',
+    '^queries/(.*)$': '<rootDir>/src/queries/$1',
+  },
 };
