@@ -1,36 +1,38 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+name: CI
 
-name: Node.js CI
+# Gates every PR and every push to master: install with a frozen lockfile, run
+# the test suite (incl. the GHSA-3xx8 regression guard) and build.
+# (lint is intentionally not run yet - the inherited codebase has many pre-existing
+#  lint errors; add it once those are cleaned up.)
 
-on: [push]
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+# Least privilege: the default repo token is write; this job only reads the code.
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   DATABASE_TYPE: postgresql
-  SKIP_DB_CHECK: 1
+  SKIP_DB_CHECK: '1'
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        include:
-        - node-version: 18.17
-          db-type: postgresql
-        - node-version: 18.17
-          db-type: mysql
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-      env:
-        DATABASE_TYPE: ${{ matrix.db-type }}
-    - run: npm install --global yarn
-    - run: yarn install
-    - run: yarn test
-    - run: yarn build
+      # Actions pinned to a commit SHA (not a mutable tag) for supply-chain safety.
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: '18.17'
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn build-db # prisma generate - the test suite imports modules that use the client
+      - run: yarn test
+      - run: yarn build
