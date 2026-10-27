@@ -12,11 +12,7 @@
 jest.mock('@umami/redis-client', () => ({ __esModule: true, default: { client: {} } }), {
   virtual: true,
 });
-jest.mock(
-  'queries',
-  () => ({ getTeamUser: jest.fn(), getWebsite: jest.fn() }),
-  { virtual: true },
-);
+jest.mock('queries', () => ({ getTeamUser: jest.fn(), getWebsite: jest.fn() }), { virtual: true });
 
 process.env.APP_SECRET = 'test-secret-for-ci';
 
