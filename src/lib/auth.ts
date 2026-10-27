@@ -1,7 +1,13 @@
 import { Report } from '@prisma/client';
 import redis from '@umami/redis-client';
 import debug from 'debug';
-import { PERMISSIONS, ROLE_PERMISSIONS, SHARE_TOKEN_HEADER, ROLES } from 'lib/constants';
+import {
+  PERMISSIONS,
+  ROLE_PERMISSIONS,
+  SHARE_TOKEN_HEADER,
+  SHARE_TOKEN_TYPE,
+  ROLES,
+} from 'lib/constants';
 import { secret } from 'lib/crypto';
 import { NextApiRequest } from 'next';
 import { createSecureToken, ensureArray, getRandomChars, parseToken } from 'next-basics';
@@ -33,7 +39,17 @@ export function getAuthToken(req: NextApiRequest) {
 
 export function parseShareToken(req: Request) {
   try {
-    return parseToken(req.headers[SHARE_TOKEN_HEADER], secret());
+    const token = parseToken(req.headers[SHARE_TOKEN_HEADER], secret());
+
+    // Only accept tokens explicitly minted as share tokens. Without this check
+    // any token signed with the shared secret (e.g. the session token returned
+    // by /api/send) is accepted as a share token, granting read access to a
+    // website's analytics with no login (GHSA-3xx8-742v-m4mq).
+    if (token?.type !== SHARE_TOKEN_TYPE) {
+      return null;
+    }
+
+    return token;
   } catch (e) {
     log(e);
     return null;

@@ -1,3 +1,4 @@
+import { SHARE_TOKEN_TYPE } from 'lib/constants';
 import { secret } from 'lib/crypto';
 import { useValidate } from 'lib/middleware';
 import { NextApiRequestQueryBody } from 'lib/types';
@@ -34,7 +35,7 @@ export default async (
 
     if (website) {
       const data = { websiteId: website.id };
-      const token = createToken(data, secret());
+      const token = createToken({ ...data, type: SHARE_TOKEN_TYPE }, secret());
 
       return ok(res, { ...data, token });
     }
